@@ -10,12 +10,16 @@ CONFIG += c++11
 
 SOURCES += \
     car.cpp \
+    carmodel.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    readjson.cpp
 
 HEADERS += \
     car.h \
-    mainwindow.h
+    carmodel.h \
+    mainwindow.h \
+    readjson.h
 
 FORMS += \
     mainwindow.ui
