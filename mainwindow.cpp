@@ -4,13 +4,23 @@
 #include "readjson.h"
 
 #include <iostream>
+#include <QVector>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_car_model(new CarModel)
 {
     ui->setupUi(this);
-    get_car_vector_from_json_file();
+    QVector<Car> cars = get_car_vector_from_json_file();
+    ui->tableView->setModel(m_car_model);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    foreach (const Car car, cars){
+        m_car_model->add_car(car);
+    }
+
+
 }
 
 MainWindow::~MainWindow()

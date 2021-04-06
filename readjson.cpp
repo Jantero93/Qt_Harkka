@@ -15,7 +15,6 @@ QVector<Car> get_car_vector_from_json_file() {
     QFile file;
     QByteArray json_text;
 
-
     file.setFileName("CARS_data.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
 
@@ -30,7 +29,7 @@ QVector<Car> get_car_vector_from_json_file() {
     if (parseError.error != QJsonParseError::NoError){
         qDebug() << "Parse error: " << parseError.errorString();
     }
-
+    // array from root object
     QJsonArray car_json_array = document.array();
 
     QVector<Car> car_list;
@@ -38,9 +37,16 @@ QVector<Car> get_car_vector_from_json_file() {
        car_list.append(parse_car_from_jsonArray(value));
     }
 
-    for (int i = 0; i < car_list.size(); i++)
-        std::cout << car_list.at(i).m_id << std::endl;
+    /*
+    foreach(const Car car, car_list){
+        std::cout << car.m_id << std::endl;
+        std::cout << car.m_make.toStdString() << std::endl;
+        std::cout << car.m_model.toStdString() << std::endl;
+        std::cout << car.m_year << std::endl;
+        std::cout << std::endl;
 
+    }
+    */
     return car_list;
 }
 
@@ -54,6 +60,7 @@ Car parse_car_from_jsonArray(const QJsonValue value)
     int price = value.toObject().value("price").toInt();
     QString make(value.toObject().value("make").toString());
     QString img_url(value.toObject().value("img_url").toString());
+    QString model(value.toObject().value("model").toString());
 
-    return Car(year, id, horsepower, make, price, img_url);
+    return Car(year, id, horsepower, make, model, price, img_url);
 }

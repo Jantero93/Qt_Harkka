@@ -7,13 +7,14 @@ class Car
 {
 public:
     Car();
-    Car(int year, int id, int horsepower, QString make, int price, QString img_url);
+    Car(int year, int id, int horsepower, QString make, QString model, int price, QString img_url);
     ~Car();
 
     int m_year;
     int m_id;
     int m_horsepower;
     QString m_make;
+    QString m_model;
     int m_price;
     QString m_img_url;
 };
