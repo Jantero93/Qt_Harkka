@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
-// columneja yhtä monta kuin autolla attribuutteja
+// columneja yhtä monta kuin autolla attribuutteja (poislukien id)
 static constexpr int CAR_ATTRIBUTES_COUNT = 5;
 
 CarModel::CarModel()
@@ -74,9 +74,26 @@ int CarModel::columnCount(const QModelIndex &parent) const
     return CAR_ATTRIBUTES_COUNT;
 }
 
+void CarModel::sort(int column, Qt::SortOrder order)
+{
+    switch (order)
+    {
+    case Qt::AscendingOrder:
+        sortAscendingOrder(column);
+        break;
+
+    case Qt::DescendingOrder:
+        sortDescendingOrder(column);
+        break;
+    }
+
+    emit(dataChanged( index(0,0), index(rowCount() - 1, columnCount() - 1) ));
+}
+
 QVariant CarModel::insertDataToColumn(QModelIndex index, Car car) const
 {
-    switch (index.column()) {
+    switch (index.column())
+    {
     case 0: return car.m_make;
     case 1: return car.m_model;
     case 2: return car.m_year;
@@ -86,4 +103,75 @@ QVariant CarModel::insertDataToColumn(QModelIndex index, Car car) const
     default: break;
     }
 
+    return QVariant();
+}
+
+void CarModel::sortAscendingOrder(int column) {
+
+    switch (column) {
+    case 0:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b){return a.m_make > b.m_make; });
+        break;
+
+    case 1:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_model > b.m_model; });
+        break;
+
+    case 2:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_year> b.m_year; });
+        break;
+
+    case 3:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_horsepower > b.m_horsepower; });
+        break;
+
+    case 4:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_price > b.m_price; });
+        break;
+
+    case 5:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_img_url > b.m_img_url; });
+        break;
+    }
+}
+
+void CarModel::sortDescendingOrder(int column)
+{
+    switch (column) {
+    case 0:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b){return a.m_make < b.m_make; });
+        break;
+
+    case 1:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_model < b.m_model; });
+        break;
+
+    case 2:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_year < b.m_year; });
+        break;
+
+    case 3:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_horsepower < b.m_horsepower; });
+        break;
+
+    case 4:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_price < b.m_price; });
+        break;
+
+    case 5:
+        std::sort(m_data.begin(), m_data.end(),
+                  [](Car a, Car b) {return a.m_img_url < b.m_img_url; });
+        break;
+    }
 }

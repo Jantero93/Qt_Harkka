@@ -18,9 +18,11 @@ public:
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-
+    virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 private:
     QVariant insertDataToColumn(QModelIndex index, Car car) const;
+    void sortAscendingOrder(int column);
+    void sortDescendingOrder(int column);
     QVector<Car> m_data;
 };
 

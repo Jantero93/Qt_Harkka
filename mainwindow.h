@@ -12,6 +12,9 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private slots:
+  //  void on_click_filter_settings_button();
+  //  void on_click_calculate_costs_button();
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -20,5 +23,6 @@ private:
     Ui::MainWindow *ui;
 
     CarModel* m_car_model;
+
 };
 #endif // MAINWINDOW_H
