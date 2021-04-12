@@ -19,8 +19,13 @@ public:
     void setMaxHP(int max_hp);
     void setMake(QString make);
     void setModel(QString model);
+    // resetoi filtter asetukset
+    void resetFilter();
+    // on / off filteröinti
+    void enableFiltering(bool enable);
 
 private:
+    // jos 0 (alustus), niin ei filtteröidä
     int m_min_price;
     int m_max_price;
     int m_min_year;
@@ -29,6 +34,9 @@ private:
     int m_max_hp;
     QString m_make;
     QString m_model;
+
+    // defaulttina pois päältä
+    bool m_filter_enabled;
 };
 
 #endif // CUSTOMPROXYMODEL_H

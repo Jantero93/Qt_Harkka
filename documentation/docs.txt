@@ -1,3 +1,4 @@
 
 CARS_data.json pitää olla buildi kansion juuressa jotta löytää
-Custom Model view loppuun
+
+Jos filtteriasetus nolla niin ei huomioida filtteröidessä

@@ -36,7 +36,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     m_proxy_model->setSourceModel(m_car_model);
-  // m_proxy_model->setModel("age");
+   m_proxy_model->setModel("age");
+   m_proxy_model->enableFiltering(false);
+   m_proxy_model->enableFiltering(true);
+
 //    m_proxy_model->setMaxPrice(0);
  //   m_proxy_model->setMinPrice(6*55000);
  //   m_proxy_model->setMinYear(2016);

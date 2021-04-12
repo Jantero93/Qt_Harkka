@@ -2,13 +2,17 @@
 #include "carmodel.h"
 
 CustomProxyModel::CustomProxyModel() : m_min_price(0), m_max_price(0), m_min_year(0)
-  , m_max_year(0), m_min_hp(0), m_max_hp(0)
+  , m_max_year(0), m_min_hp(0), m_max_hp(0), m_filter_enabled(false)
 {
 }
 
 // täyttääkö rivi filtterin ehdot ja lisätään modeliin
 bool CustomProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
+    // Jos filtteröinti ei ole päällä, hyväksy jokainen rivi
+    if (!m_filter_enabled)
+        return true;
+
     // Hae rivin data joka lohkosta
     QModelIndex idx_year = sourceModel()->index(source_row, CarModel::COL_YEAR, source_parent);
     QModelIndex idx_hp = sourceModel()->index(source_row, CarModel::COL_HP, source_parent);
@@ -62,64 +66,90 @@ QVariant CustomProxyModel::headerData(int section, Qt::Orientation orientation, 
 
 void CustomProxyModel::setMinPrice(int min_price)
 {
-     if (min_price != m_min_price)
-         m_min_price = min_price;
-
-    invalidateFilter();
+    if (min_price != m_min_price)
+    {
+        m_min_price = min_price;
+        invalidateFilter();
+    }
 }
 
 void CustomProxyModel::setMaxPrice(int max_price)
 {
     if (max_price != m_max_price)
+    {
         m_max_price = max_price;
+        invalidateFilter();
+    }
 
-    invalidateFilter();
 }
 
 void CustomProxyModel::setMinYear(int min_year)
 {
     if (min_year != m_min_year)
+    {
         m_min_year = min_year;
-
-    invalidateFilter();
+        invalidateFilter();
+    }
 }
 
 void CustomProxyModel::setMaxYear(int max_year)
 {
     if (max_year != m_max_year)
+    {
         m_max_year = max_year;
-
-    invalidateFilter();
+        invalidateFilter();
+    }
 }
 
 void CustomProxyModel::setMinHP(int min_hp)
 {
     if (min_hp != m_min_hp)
+    {
         m_min_hp = min_hp;
-
-    invalidateFilter();
+        invalidateFilter();
+    }
 }
 
 void CustomProxyModel::setMaxHP(int max_hp)
 {
     if (m_max_hp != max_hp)
+    {
         m_max_hp = max_hp;
-
-    invalidateFilter();
+        invalidateFilter();
+    }
 }
 
 void CustomProxyModel::setMake(QString make)
 {
     if (make != m_make)
+    {
         m_make = make;
-
-    invalidateFilter();
+        invalidateFilter();
+    }
 }
 
 void CustomProxyModel::setModel(QString model)
 {
     if (model != m_model)
+    {
         m_model = model;
+        invalidateFilter();
+    }
+}
+
+void CustomProxyModel::resetFilter()
+{
+    m_min_price = 0;
+    m_max_price = 0;
+    m_min_year = 0;
+    m_max_year = 0;
+    m_make.clear();
+    m_model.clear();
 
     invalidateFilter();
+}
+
+void CustomProxyModel::enableFiltering(bool enable)
+{
+    m_filter_enabled = enable;
 }
