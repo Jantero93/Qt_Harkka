@@ -10,6 +10,13 @@ class CarModel : public QAbstractTableModel
 {
 public:
     CarModel();
+    // Mikä columni on mikäkin
+    static constexpr int COL_MAKE = 0;
+    static constexpr int COL_MODEL = 1;
+    static constexpr int COL_YEAR = 2;
+    static constexpr int COL_HP = 3;
+    static constexpr int COL_PRICE = 4;
+    static constexpr int COL_URL = 5;
 
     void add_car(Car car);
     void remove_car(QModelIndexList);
@@ -19,10 +26,13 @@ public:
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
     virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
+
 private:
-    QVariant insertDataToColumn(QModelIndex index, Car car) const;
-    void sortAscendingOrder(int column);
-    void sortDescendingOrder(int column);
+    QVariant insert_data_to_column(QModelIndex index, Car car) const;
+    // apufunktiota
+    void sort_ascending_order(int column);
+    void sort_descending_order(int column);
+
     QVector<Car> m_data;
 };
 

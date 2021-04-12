@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     car.cpp \
     carmodel.cpp \
+    customproxymodel.cpp \
     main.cpp \
     mainwindow.cpp \
     readjson.cpp
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     car.h \
     carmodel.h \
+    customproxymodel.h \
     mainwindow.h \
     readjson.h
 

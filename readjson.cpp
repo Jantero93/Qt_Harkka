@@ -1,25 +1,24 @@
+#include "readjson.h"
+
 #include <QFile>
 #include <QIODevice>
-#include <QJsonDocument>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QJsonObject>
-
-#include "readjson.h"
+#include <QVector>
 
 #include <iostream>
 #include <QDebug>
 
-#include <QVector>
 
-QVector<Car> get_car_vector_from_json_file() {
+QVector<Car> get_cars_from_json_file() {
+
     QFile file;
-    QByteArray json_text;
-
     file.setFileName("CARS_data.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
 
-    json_text = file.readAll();
-   // std::cout << json_text.toStdString() << std::endl;
+    QByteArray json_text = file.readAll();
+    // std::cout << json_text.toStdString() << std::endl;
     file.close();
 
     QJsonParseError parseError;
@@ -44,7 +43,6 @@ QVector<Car> get_car_vector_from_json_file() {
         std::cout << car.m_model.toStdString() << std::endl;
         std::cout << car.m_year << std::endl;
         std::cout << std::endl;
-
     }
     */
     return car_list;

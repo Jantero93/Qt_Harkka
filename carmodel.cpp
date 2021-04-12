@@ -3,8 +3,9 @@
 #include <algorithm>
 #include <iostream>
 
-// columneja yhtä monta kuin autolla attribuutteja (poislukien id)
-static constexpr int CAR_ATTRIBUTES_COUNT = 5;
+
+// columneja yhtä monta kuin autolla attribuutteja (poislukien id ja url)
+static constexpr int CAR_MODEL_ATTRIBUTES_COUNT = 5;
 
 CarModel::CarModel()
 {
@@ -17,7 +18,7 @@ void CarModel::add_car(Car car)
 
 void CarModel::remove_car(QModelIndexList indexList)
 {
-    //poista indeksit suurimmasta pienimpään, ei mene järjestys sekasin
+    // delete indexes descending order
     std::sort(std::begin(indexList), std::end(indexList));
     std::reverse(std::begin(indexList), std::end(indexList));
 
@@ -36,12 +37,11 @@ QVariant CarModel::headerData(int section, Qt::Orientation orientation, int role
     {
         switch (section)
         {
-        case 0: return "Make";
-        case 1: return "Model";
-        case 2: return "Year";
-        case 3: return "Horsepower";
-        case 4: return "Price";
-        case 5: return "Image URL";
+        case COL_MAKE: return "Make";
+        case COL_MODEL: return "Model";
+        case COL_YEAR: return "Year";
+        case COL_HP: return "Horsepower";
+        case COL_PRICE: return "Price";
         default: break;
         }
     }
@@ -49,15 +49,19 @@ QVariant CarModel::headerData(int section, Qt::Orientation orientation, int role
     return QVariant();
 }
 
-
-
 QVariant CarModel::data(const QModelIndex &index, int role) const
 {
+    // set data center on table view
+    if(role == Qt::TextAlignmentRole)
+    {
+        return Qt::AlignCenter;
+    }
+
     if (role == Qt::DisplayRole)
     {
         Car car = m_data.at(index.row());
 
-        return insertDataToColumn(index, car);
+        return insert_data_to_column(index, car);
     }
  return QVariant();
 }
@@ -71,7 +75,7 @@ int CarModel::rowCount(const QModelIndex &parent) const
 int CarModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return CAR_ATTRIBUTES_COUNT;
+    return CAR_MODEL_ATTRIBUTES_COUNT;
 }
 
 void CarModel::sort(int column, Qt::SortOrder order)
@@ -79,18 +83,18 @@ void CarModel::sort(int column, Qt::SortOrder order)
     switch (order)
     {
     case Qt::AscendingOrder:
-        sortAscendingOrder(column);
+        sort_ascending_order(column);
         break;
 
     case Qt::DescendingOrder:
-        sortDescendingOrder(column);
+        sort_descending_order(column);
         break;
     }
 
     emit(dataChanged( index(0,0), index(rowCount() - 1, columnCount() - 1) ));
 }
 
-QVariant CarModel::insertDataToColumn(QModelIndex index, Car car) const
+QVariant CarModel::insert_data_to_column(QModelIndex index, Car car) const
 {
     switch (index.column())
     {
@@ -99,14 +103,13 @@ QVariant CarModel::insertDataToColumn(QModelIndex index, Car car) const
     case 2: return car.m_year;
     case 3: return car.m_horsepower;
     case 4: return car.m_price;
-    case 5: return car.m_img_url;
     default: break;
     }
 
     return QVariant();
 }
 
-void CarModel::sortAscendingOrder(int column) {
+void CarModel::sort_ascending_order(int column) {
 
     switch (column) {
     case 0:
@@ -133,15 +136,10 @@ void CarModel::sortAscendingOrder(int column) {
         std::sort(m_data.begin(), m_data.end(),
                   [](Car a, Car b) {return a.m_price > b.m_price; });
         break;
-
-    case 5:
-        std::sort(m_data.begin(), m_data.end(),
-                  [](Car a, Car b) {return a.m_img_url > b.m_img_url; });
-        break;
     }
 }
 
-void CarModel::sortDescendingOrder(int column)
+void CarModel::sort_descending_order(int column)
 {
     switch (column) {
     case 0:
@@ -167,11 +165,6 @@ void CarModel::sortDescendingOrder(int column)
     case 4:
         std::sort(m_data.begin(), m_data.end(),
                   [](Car a, Car b) {return a.m_price < b.m_price; });
-        break;
-
-    case 5:
-        std::sort(m_data.begin(), m_data.end(),
-                  [](Car a, Car b) {return a.m_img_url < b.m_img_url; });
         break;
     }
 }

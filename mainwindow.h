@@ -1,8 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include "carmodel.h"
+#include "customproxymodel.h"
+
+#include <QMainWindow>
+#include <QSortFilterProxyModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +26,7 @@ private:
     Ui::MainWindow *ui;
 
     CarModel* m_car_model;
+    CustomProxyModel* m_proxy_model;
 
 };
 #endif // MAINWINDOW_H
