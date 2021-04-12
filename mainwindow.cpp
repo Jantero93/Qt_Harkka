@@ -6,11 +6,19 @@
 #include <iostream>
 #include <QVector>
 
+void MainWindow::on_click_filter_settings_button()
+{
+
+    m_filter_input->exec();
+    return;
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_car_model(new CarModel)
     , m_proxy_model(new CustomProxyModel)
+    , m_filter_input(new FilterInputDialog)
 {
     ui->setupUi(this);
     // car list from json file
@@ -47,6 +55,11 @@ MainWindow::MainWindow(QWidget *parent)
   //  m_proxy_model->setFilterWildcard("audi");
   //  m_proxy_model->setFilterKeyColumn(0);
     ui->tableView->setModel(m_proxy_model);
+
+    connect(ui->pushButton_Filter,
+            &QPushButton::pressed,
+            this,
+            &MainWindow::on_click_filter_settings_button);
 
 
 }

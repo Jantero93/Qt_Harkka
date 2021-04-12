@@ -12,6 +12,7 @@ SOURCES += \
     car.cpp \
     carmodel.cpp \
     customproxymodel.cpp \
+    filterinputdialog.cpp \
     main.cpp \
     mainwindow.cpp \
     readjson.cpp
@@ -20,10 +21,13 @@ HEADERS += \
     car.h \
     carmodel.h \
     customproxymodel.h \
+    filterinputdialog.h \
+    filtersettings.h \
     mainwindow.h \
     readjson.h
 
 FORMS += \
+    filterinputdialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

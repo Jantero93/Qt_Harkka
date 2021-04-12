@@ -3,6 +3,7 @@
 
 #include "carmodel.h"
 #include "customproxymodel.h"
+#include "filterinputdialog.h"
 
 #include <QMainWindow>
 #include <QSortFilterProxyModel>
@@ -16,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 private slots:
-  //  void on_click_filter_settings_button();
+    void on_click_filter_settings_button();
   //  void on_click_calculate_costs_button();
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -27,6 +28,7 @@ private:
 
     CarModel* m_car_model;
     CustomProxyModel* m_proxy_model;
+    FilterInputDialog* m_filter_input;
 
 };
 #endif // MAINWINDOW_H
