@@ -33,13 +33,8 @@ QStringList generateDropDownPriceItems()
     for (int i = 500; i <= 1000*1000; i += step)
     {
 
-        QString string_number(QString::number(i));
 
-        QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
-        QLocale english;
-
-
-        list.push_back(english.toString(i));
+        list.push_back(QString::number(i));
 
         switch (i)
         {

@@ -4,7 +4,7 @@
 #include "utility.h"
 
 #include <QDialog>
-#include <QIntValidator>
+
 
 namespace Ui {
 class FilterInputDialog;
@@ -27,13 +27,18 @@ private slots:
 public:
     explicit FilterInputDialog(QWidget *parent = nullptr);
     ~FilterInputDialog();
+    // ei init vielä
+    FilterOptions getOptions();
 
 private:
     Ui::FilterInputDialog *ui;
 
     // struct
-    FilterOptions settings;
+    FilterOptions m_settings;
     void initialize_ui();
+
+    //set ok button enabled if inputs are valid
+    void inputfieldsValid();
 };
 
 #endif // FILTERINPUTDIALOG_H

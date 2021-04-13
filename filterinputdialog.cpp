@@ -6,89 +6,93 @@
 
 void FilterInputDialog::on_make_change()
 {
-    settings.make = ui->lineEdit_Make->text();
-    qDebug() << settings.make;
+    m_settings.make = ui->lineEdit_Make->text();
+    qDebug() << m_settings.make;
+    inputfieldsValid();
 }
 
 void FilterInputDialog::on_model_change()
 {
-    settings.model = ui->lineEdit_Model->text();
-    qDebug() << settings.model;
+    m_settings.model = ui->lineEdit_Model->text();
+    qDebug() << m_settings.model;
+    inputfieldsValid();
 }
 
 void FilterInputDialog::on_max_power_change()
 {
     // jos default "max power", aseta nolla niin ei filtteröidy mitää, muille sama
     if(ui->comboBox_MaxPower->currentIndex() == 0)
-        settings.max_power = 0;
+        m_settings.max_power = 0;
 
     else
-        settings.max_power = ui->comboBox_MaxPower->currentText().toInt();
+        m_settings.max_power = ui->comboBox_MaxPower->currentText().toInt();
 
-    qDebug() << settings.max_power;
+    qDebug() << m_settings.max_power;
+    inputfieldsValid();
 }
 
 void FilterInputDialog::on_min_power_change()
 {
     if (ui->comboBox_MinPower->currentIndex() == 0)
-        settings.min_power = 0;
+        m_settings.min_power = 0;
 
     else
-        settings.min_power = ui->comboBox_MinPower->currentText().toInt();
+        m_settings.min_power = ui->comboBox_MinPower->currentText().toInt();
 
-        qDebug() << settings.min_power;
+        qDebug() << m_settings.min_power;
+        inputfieldsValid();
 }
 
 void FilterInputDialog::on_max_price_change()
 {
     if (ui->comboBox_MaxPrice->currentIndex() == 0)
-        settings.max_price = 0;
+        m_settings.max_price = 0;
 
     else
-    {
-        // parsi tuhaterottimet pois
-        QString string = ui->comboBox_MaxPrice->currentText().remove(",");
-        settings.max_price = string.toInt();
-    }
+        m_settings.max_price = ui->comboBox_MaxPrice->currentText().toInt();
 
-    qDebug() << settings.max_price;
+
+
+    qDebug() << m_settings.max_price;
+    inputfieldsValid();
 }
 
 void FilterInputDialog::on_min_price_change()
 {
     if (ui->comboBox_MinPrice->currentIndex() == 0)
-        settings.min_price = 0;
+        m_settings.min_price = 0;
 
     else
-    {
-        // parsi tuhaterottimet pois
-        QString string = ui->comboBox_MinPrice->currentText().remove(",");
-        settings.min_price = string.toInt();
-    }
+        m_settings.min_price = ui->comboBox_MinPrice->currentText().toInt();
 
-    qDebug() << settings.min_price;
+
+
+    qDebug() << m_settings.min_price;
+    inputfieldsValid();
 }
 
 void FilterInputDialog::on_max_year_change()
 {
     if (ui->comboBox_MaxYear->currentIndex() == 0)
-        settings.max_year = 0;
+        m_settings.max_year = 0;
 
     else
-        settings.max_year = ui->comboBox_MaxYear->currentText().toInt();
+        m_settings.max_year = ui->comboBox_MaxYear->currentText().toInt();
 
-    qDebug() << settings.max_year;
+    qDebug() << m_settings.max_year;
+    inputfieldsValid();
 }
 
 void FilterInputDialog::on_min_year_change()
 {
     if (ui->comboBox_MinYear->currentIndex() == 0)
-        settings.min_year = 0;
+        m_settings.min_year = 0;
 
     else
-        settings.min_year = ui->comboBox_MinYear->currentText().toInt();
+        m_settings.min_year = ui->comboBox_MinYear->currentText().toInt();
 
-    qDebug() << settings.min_year;
+    qDebug() << m_settings.min_year;
+    inputfieldsValid();
 }
 
 FilterInputDialog::FilterInputDialog(QWidget *parent) :
@@ -106,6 +110,11 @@ FilterInputDialog::FilterInputDialog(QWidget *parent) :
 FilterInputDialog::~FilterInputDialog()
 {
     delete ui;
+}
+
+FilterOptions FilterInputDialog::getOptions()
+{
+    return m_settings;
 }
 
 void FilterInputDialog::initialize_ui()
@@ -174,9 +183,36 @@ void FilterInputDialog::initialize_ui()
     list.insert(0,"Maximum price");
     ui->comboBox_MaxPrice->addItems(list);
 
-    QPushButton* test = ui->buttonBox->button(QDialogButtonBox::Ok);
 
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+}
+
+void FilterInputDialog::inputfieldsValid()
+{
+    QPushButton* ok_button = ui->buttonBox->button(QDialogButtonBox::Ok);
+    bool validInput = true;
+
+    // check is max_power default (= 0)
+    if (m_settings.max_power < m_settings.min_power && ui->comboBox_MaxPower->currentIndex() != 0)
+        validInput = false;
+
+    if (m_settings.max_year < m_settings.min_year && ui->comboBox_MaxYear->currentIndex() != 0)
+        validInput = false;
+
+    if (m_settings.max_price < m_settings.min_price && ui->comboBox_MaxPrice->currentIndex() != 0)
+        validInput = false;
+
+    if (!validInput)
+    {
+        ui->label_Warning->setStyleSheet("QLabel {background-color : red; color : white}");
+        ui->label_Warning->setText("Check input!");
+    }
+    else
+    {
+        ui->label_Warning->setStyleSheet("");
+        ui->label_Warning->setText("");
+    }
+
+
 }
 
 
