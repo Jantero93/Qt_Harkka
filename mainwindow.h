@@ -18,6 +18,7 @@ class MainWindow : public QMainWindow
 
 private slots:
     void on_click_filter_settings_button();
+    void on_checkbox_state_change();
   //  void on_click_calculate_costs_button();
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -29,6 +30,5 @@ private:
     CarModel* m_car_model;
     CustomProxyModel* m_proxy_model;
     FilterInputDialog* m_filter_input;
-
 };
 #endif // MAINWINDOW_H
