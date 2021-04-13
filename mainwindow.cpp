@@ -15,13 +15,17 @@ void MainWindow::on_click_filter_settings_button()
         FilterOptions filter_options = m_filter_input->getOptions();
 
         m_proxy_model->setMake(filter_options.make);
+
         m_proxy_model->setModel(filter_options.model);
+
         m_proxy_model->setMinYear(filter_options.min_year);
         m_proxy_model->setMaxYear(filter_options.max_year);
-        m_proxy_model->setMaxHP(filter_options.max_power);
+
         m_proxy_model->setMinHP(filter_options.min_power);
+        m_proxy_model->setMaxHP(filter_options.max_power);
+
         m_proxy_model->setMinPrice(filter_options.min_price);
-        m_proxy_model->setMaxPrice(filter_options.max_power);
+        m_proxy_model->setMaxPrice(filter_options.max_price);
 
         // set automatically filtered model and filter checkbox enablet
         ui->tableView->setModel(m_proxy_model);
@@ -44,12 +48,18 @@ void MainWindow::on_checkbox_state_change()
 
 }
 
+void MainWindow::on_click_calculate_costs_button()
+{
+       m_costs_calc->exec();
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_car_model(new CarModel)
     , m_proxy_model(new CustomProxyModel)
     , m_filter_input(new FilterInputDialog)
+    , m_costs_calc(new CostsCalculator)
 {
     ui->setupUi(this);
 
@@ -62,6 +72,10 @@ MainWindow::MainWindow(QWidget *parent)
             &QPushButton::pressed,
             this,
             &MainWindow::on_click_filter_settings_button);
+    connect(ui->pushButton_Cost,
+            &QPushButton::pressed,
+            this,
+            &MainWindow::on_click_calculate_costs_button);
 
     // car list from json file
     QVector<Car> cars = get_cars_from_json_file();
@@ -86,9 +100,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     m_proxy_model->setSourceModel(m_car_model);
-  //  m_proxy_model->setMake("volks");
-    m_proxy_model->enableFiltering(true);
 
+    m_proxy_model->enableFiltering(true);
+    // TEST
+  //  ui->tableView->setModel(m_proxy_model);
+    //m_proxy_model->setMaxHP(500);
 }
 
 MainWindow::~MainWindow()

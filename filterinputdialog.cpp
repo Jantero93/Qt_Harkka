@@ -149,10 +149,12 @@ void FilterInputDialog::initialize_ui()
             &QComboBox::currentTextChanged,
             this,
             &FilterInputDialog::on_min_price_change);
+
     connect(ui->comboBox_MaxYear,
             &QComboBox::currentTextChanged,
             this,
             &FilterInputDialog::on_max_year_change);
+
     connect(ui->comboBox_MinYear,
             &QComboBox::currentTextChanged,
             this,

@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     car.cpp \
     carmodel.cpp \
+    costscalculator.cpp \
     customproxymodel.cpp \
     filterinputdialog.cpp \
     main.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 HEADERS += \
     car.h \
     carmodel.h \
+    costscalculator.h \
     customproxymodel.h \
     filterinputdialog.h \
     mainwindow.h \
@@ -28,6 +30,7 @@ HEADERS += \
     utility.h
 
 FORMS += \
+    costscalculator.ui \
     filterinputdialog.ui \
     mainwindow.ui
 
