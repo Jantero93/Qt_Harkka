@@ -1,4 +1,8 @@
 #include <QString>
+#include <QStringList>
+
+QStringList generateDropDownForLoop(int start, int step, int end, bool reverseOrder);
+QStringList generateDropDownPriceItems();
 
 struct FilterOptions
 {
@@ -11,3 +15,4 @@ struct FilterOptions
     QString make;
     QString model;
 };
+

@@ -23,21 +23,27 @@
    </item>
    <item row="7" column="3">
     <widget class="QComboBox" name="comboBox_MinPower">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="inputMethodHints">
       <set>Qt::ImhDigitsOnly</set>
      </property>
      <property name="editable">
-      <bool>true</bool>
+      <bool>false</bool>
+     </property>
+     <property name="insertPolicy">
+      <enum>QComboBox::InsertAtCurrent</enum>
      </property>
     </widget>
    </item>
    <item row="8" column="3">
     <widget class="QComboBox" name="comboBox_MaxPower">
      <property name="inputMethodHints">
-      <set>Qt::ImhDigitsOnly</set>
+      <set>Qt::ImhNone</set>
      </property>
      <property name="editable">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
    </item>
@@ -61,7 +67,7 @@
       <set>Qt::ImhDigitsOnly</set>
      </property>
      <property name="editable">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
    </item>
@@ -82,23 +88,16 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="3">
-    <widget class="QSpinBox" name="spinBox_MaxPrice">
-     <property name="maximum">
-      <number>100000000</number>
-     </property>
-     <property name="singleStep">
-      <number>1000</number>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="3">
     <widget class="QComboBox" name="comboBox_MaxYear">
      <property name="inputMethodHints">
       <set>Qt::ImhDigitsOnly</set>
      </property>
      <property name="editable">
-      <bool>true</bool>
+      <bool>false</bool>
+     </property>
+     <property name="sizeAdjustPolicy">
+      <enum>QComboBox::AdjustToContents</enum>
      </property>
     </widget>
    </item>
@@ -118,19 +117,6 @@
    </item>
    <item row="1" column="3">
     <widget class="QLineEdit" name="lineEdit_Model"/>
-   </item>
-   <item row="4" column="3">
-    <widget class="QSpinBox" name="spinBox_MinPrice">
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::UpDownArrows</enum>
-     </property>
-     <property name="maximum">
-      <number>100000000</number>
-     </property>
-     <property name="singleStep">
-      <number>1000</number>
-     </property>
-    </widget>
    </item>
    <item row="9" column="3">
     <widget class="QDialogButtonBox" name="buttonBox">
@@ -152,6 +138,19 @@
      </property>
     </widget>
    </item>
+   <item row="4" column="3">
+    <widget class="QComboBox" name="comboBox_MinPrice"/>
+   </item>
+   <item row="5" column="3">
+    <widget class="QComboBox" name="comboBox_MaxPrice">
+     <property name="iconSize">
+      <size>
+       <width>16</width>
+       <height>13</height>
+      </size>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
@@ -159,8 +158,6 @@
   <tabstop>lineEdit_Model</tabstop>
   <tabstop>comboBox_MinYear</tabstop>
   <tabstop>comboBox_MaxYear</tabstop>
-  <tabstop>spinBox_MinPrice</tabstop>
-  <tabstop>spinBox_MaxPrice</tabstop>
   <tabstop>comboBox_MinPower</tabstop>
   <tabstop>comboBox_MaxPower</tabstop>
  </tabstops>

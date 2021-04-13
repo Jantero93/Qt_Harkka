@@ -15,16 +15,17 @@ SOURCES += \
     filterinputdialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    readjson.cpp
+    readjson.cpp \
+    utility.cpp
 
 HEADERS += \
     car.h \
     carmodel.h \
     customproxymodel.h \
     filterinputdialog.h \
-    filtersettings.h \
     mainwindow.h \
-    readjson.h
+    readjson.h \
+    utility.h
 
 FORMS += \
     filterinputdialog.ui \
