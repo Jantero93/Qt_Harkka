@@ -40,7 +40,7 @@ QVariant CarModel::headerData(int section, Qt::Orientation orientation, int role
         case COL_MAKE: return "Make";
         case COL_MODEL: return "Model";
         case COL_YEAR: return "Year";
-        case COL_HP: return "Horsepower";
+        case COL_POWER: return "Horsepower";
         case COL_PRICE: return "Price";
         default: break;
         }

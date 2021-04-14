@@ -4,6 +4,36 @@
 #include <QPushButton>
 #include <QDebug>
 
+void FilterInputDialog::on_click_dialog_buttons(QAbstractButton *clicked_button)
+{
+    if (clicked_button == ui->buttonBox->button(QDialogButtonBox::Reset))
+    {
+        m_settings.make.clear();
+        ui->lineEdit_Make->setText("");
+
+        m_settings.model.clear();
+        ui->lineEdit_Model->setText("");
+
+        m_settings.max_power = 0;
+        ui->comboBox_MaxPower->setCurrentIndex(0);
+
+        m_settings.min_power = 0;
+        ui->comboBox_MinPower->setCurrentIndex(0);
+
+        m_settings.max_price = 0;
+        ui->comboBox_MaxPrice->setCurrentIndex(0);
+
+        m_settings.min_price = 0;
+        ui->comboBox_MinPrice->setCurrentIndex(0);
+
+        m_settings.max_year = 0;
+        ui->comboBox_MaxYear->setCurrentIndex(0);
+
+        m_settings.min_year = 0;
+        ui->comboBox_MinYear->setCurrentIndex(0);
+    }
+}
+
 void FilterInputDialog::on_make_change()
 {
     m_settings.make = ui->lineEdit_Make->text();
@@ -120,6 +150,13 @@ FilterOptions FilterInputDialog::getOptions()
 void FilterInputDialog::initialize_ui()
 {
     //connect ui to code
+
+    // button clicks from buttonBox reset, ok, cancel
+    connect(ui->buttonBox,
+            &QDialogButtonBox::clicked,
+            this,
+            &FilterInputDialog::on_click_dialog_buttons);
+
     connect(ui->lineEdit_Make,
             &QLineEdit::textChanged,
             this,
@@ -170,6 +207,7 @@ void FilterInputDialog::initialize_ui()
 
     // add dropdrown items for power comboboxes
     list = generateDropDownForLoop(50,50,1000, false);
+    // insert maximun power and minimun power on top of combos
     list.insert(0,"Maximum power");
     ui->comboBox_MaxPower->addItems(list);
     list.pop_front();
@@ -190,7 +228,6 @@ void FilterInputDialog::initialize_ui()
 
 void FilterInputDialog::inputfieldsValid()
 {
-    QPushButton* ok_button = ui->buttonBox->button(QDialogButtonBox::Ok);
     bool validInput = true;
 
     // check is max_power default (= 0)
@@ -213,7 +250,6 @@ void FilterInputDialog::inputfieldsValid()
         ui->label_Warning->setStyleSheet("");
         ui->label_Warning->setText("");
     }
-
 
 }
 

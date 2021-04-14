@@ -32,18 +32,16 @@ QStringList generateDropDownPriceItems()
 
     for (int i = 500; i <= 1000*1000; i += step)
     {
-
-
         list.push_back(QString::number(i));
 
         switch (i)
         {
-        case 3 * 1000:  step = 1000; break;
-        case 10 * 1000: step = 2000; break;
-        case 20 * 1000: step = 5000; break;
-        case 50 * 1000: step = 10000; break;
-        case 100 * 1000: step = 20000; break;
-        case 200 * 1000: step = 50000; break;
+        case 3 * 1000:  step = 1 * 1000; break;
+        case 10 * 1000: step = 2 * 2000; break;
+        case 20 * 1000: step = 5 * 1000; break;
+        case 50 * 1000: step = 10 * 1000; break;
+        case 100 * 1000: step = 20 * 1000; break;
+        case 200 * 1000: step = 50 * 1000; break;
         default: break;
         }
     }

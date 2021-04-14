@@ -4,6 +4,7 @@
 #include "utility.h"
 
 #include <QDialog>
+#include <QAbstractButton>
 
 
 namespace Ui {
@@ -15,6 +16,8 @@ class FilterInputDialog : public QDialog
     Q_OBJECT
 
 private slots:
+    void on_click_dialog_buttons(QAbstractButton *clicked_button);
+
     void on_make_change();
     void on_model_change();
     void on_max_power_change();
@@ -27,18 +30,19 @@ private slots:
 public:
     explicit FilterInputDialog(QWidget *parent = nullptr);
     ~FilterInputDialog();
-    // ei init vielä
+
     FilterOptions getOptions();
 
 private:
     Ui::FilterInputDialog *ui;
 
-    // struct
+    // struct for filter settings
     FilterOptions m_settings;
     void initialize_ui();
 
     //set ok button enabled if inputs are valid
     void inputfieldsValid();
+
 };
 
 #endif // FILTERINPUTDIALOG_H

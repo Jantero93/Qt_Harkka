@@ -21,12 +21,15 @@ private slots:
     void on_click_filter_settings_button();
     void on_checkbox_state_change();
     void on_click_calculate_costs_button();
+    void on_pressed_cell_table_view_row();
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
+
+    void setSettingsFromDialogToProxyModel();
 
     CarModel* m_car_model;
     CustomProxyModel* m_proxy_model;

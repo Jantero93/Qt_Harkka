@@ -1,4 +1,6 @@
-
 CARS_data.json pitää olla buildi kansion juuressa jotta löytää
 
-Jos filtteriasetus nolla niin ei huomioida filtteröidessä
+
+Jos filtteriasetus nolla niin ei huomioida filtteröidessä (m_proxy_model)
+
+Inputdialogissa ei tehdä suurempia virheen tarkastuksia. Selvissä ristiriidoissa (esim. minimihinta suurempi kuin maksimihinta) käyttäjälle tulostetaan varoitus labelina. Filtteröinnin voi aktivoida ja proxy_model ei siitä kaadu. Luonnollisesti hakutuloksia ei ole.

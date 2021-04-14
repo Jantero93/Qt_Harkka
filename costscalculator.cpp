@@ -18,6 +18,7 @@ CostsCalculator::CostsCalculator(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // input 7 digits, no leading zeros
     QRegExpValidator* validator = new QRegExpValidator(QRegExp("[1-9]\\d{0,6}"));
 
 

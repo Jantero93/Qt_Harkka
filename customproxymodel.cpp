@@ -15,13 +15,13 @@ bool CustomProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sourc
 
     // Hae rivin data joka lohkosta
     QModelIndex idx_year = sourceModel()->index(source_row, CarModel::COL_YEAR, source_parent);
-    QModelIndex idx_hp = sourceModel()->index(source_row, CarModel::COL_HP, source_parent);
+    QModelIndex idx_hp = sourceModel()->index(source_row, CarModel::COL_POWER, source_parent);
     QModelIndex idx_price = sourceModel()->index(source_row, CarModel::COL_PRICE, source_parent);
     QModelIndex idx_make = sourceModel()->index(source_row, CarModel::COL_MAKE, source_parent);
     QModelIndex idx_model = sourceModel()->index(source_row, CarModel::COL_MODEL, source_parent);
 
     // jos filtterin ehdot ei täyty --> false
-    // jos filtterin ehto 0 == ei asetettu, ei huomioida filtteröinnissä
+    // jos filtterin ehto 0 == ei asetettu, ei huomioida filtteröinnissä, eli ei false
 
     // vertaa min hinta
     if (sourceModel()->data(idx_price).toInt() < m_min_price && m_min_price != 0)

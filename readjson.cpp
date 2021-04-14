@@ -48,8 +48,6 @@ QVector<Car> get_cars_from_json_file() {
     return car_list;
 }
 
-
-
 Car parse_car_from_jsonArray(const QJsonValue value)
 {
     int year = value.toObject().value("year").toInt();

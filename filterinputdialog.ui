@@ -14,10 +14,46 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="2">
-    <widget class="QLabel" name="label_Model">
+   <item row="4" column="3">
+    <widget class="QComboBox" name="comboBox_MinPrice"/>
+   </item>
+   <item row="9" column="3">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2">
+    <widget class="QLabel" name="label_MinPower">
      <property name="text">
-      <string>Model</string>
+      <string>Minimum power</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QLabel" name="label_MinYear">
+     <property name="text">
+      <string>Minimum year</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QLineEdit" name="lineEdit_Make"/>
+   </item>
+   <item row="8" column="3">
+    <widget class="QComboBox" name="comboBox_MaxPower">
+     <property name="inputMethodHints">
+      <set>Qt::ImhNone</set>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
@@ -37,56 +73,25 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="3">
-    <widget class="QComboBox" name="comboBox_MaxPower">
-     <property name="inputMethodHints">
-      <set>Qt::ImhNone</set>
-     </property>
-     <property name="editable">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2">
-    <widget class="QLabel" name="label_MinYear">
+   <item row="1" column="2">
+    <widget class="QLabel" name="label_Model">
      <property name="text">
-      <string>Minimum year</string>
+      <string>Model</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="2">
-    <widget class="QLabel" name="label_MaxPower">
-     <property name="text">
-      <string>Maximum power</string>
+   <item row="5" column="3">
+    <widget class="QComboBox" name="comboBox_MaxPrice">
+     <property name="iconSize">
+      <size>
+       <width>16</width>
+       <height>13</height>
+      </size>
      </property>
     </widget>
    </item>
-   <item row="2" column="3">
-    <widget class="QComboBox" name="comboBox_MinYear">
-     <property name="inputMethodHints">
-      <set>Qt::ImhDigitsOnly</set>
-     </property>
-     <property name="editable">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="2">
-    <widget class="QLabel" name="label_MinPower">
-     <property name="text">
-      <string>Minimum power</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="3">
-    <widget class="QLineEdit" name="lineEdit_Make"/>
-   </item>
-   <item row="0" column="2">
-    <widget class="QLabel" name="label_Make">
-     <property name="text">
-      <string>Make</string>
-     </property>
-    </widget>
+   <item row="1" column="3">
+    <widget class="QLineEdit" name="lineEdit_Model"/>
    </item>
    <item row="3" column="3">
     <widget class="QComboBox" name="comboBox_MaxYear">
@@ -108,26 +113,27 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="2">
-    <widget class="QLabel" name="label_MinPrice">
+   <item row="8" column="2">
+    <widget class="QLabel" name="label_MaxPower">
      <property name="text">
-      <string>Minimum price</string>
+      <string>Maximum power</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="3">
-    <widget class="QLineEdit" name="lineEdit_Model"/>
-   </item>
-   <item row="9" column="3">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="2" column="3">
+    <widget class="QComboBox" name="comboBox_MinYear">
+     <property name="inputMethodHints">
+      <set>Qt::ImhDigitsOnly</set>
      </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-     <property name="centerButtons">
+     <property name="editable">
       <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QLabel" name="label_Make">
+     <property name="text">
+      <string>Make</string>
      </property>
     </widget>
    </item>
@@ -138,16 +144,10 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="3">
-    <widget class="QComboBox" name="comboBox_MinPrice"/>
-   </item>
-   <item row="5" column="3">
-    <widget class="QComboBox" name="comboBox_MaxPrice">
-     <property name="iconSize">
-      <size>
-       <width>16</width>
-       <height>13</height>
-      </size>
+   <item row="4" column="2">
+    <widget class="QLabel" name="label_MinPrice">
+     <property name="text">
+      <string>Minimum price</string>
      </property>
     </widget>
    </item>

@@ -10,11 +10,11 @@ class CarModel : public QAbstractTableModel
 {
 public:
     CarModel();
-    // Mikä columni on mikäkin
+    // column indexes
     static constexpr int COL_MAKE = 0;
     static constexpr int COL_MODEL = 1;
     static constexpr int COL_YEAR = 2;
-    static constexpr int COL_HP = 3;
+    static constexpr int COL_POWER = 3;
     static constexpr int COL_PRICE = 4;
     static constexpr int COL_URL = 5;
 
@@ -28,10 +28,11 @@ public:
     virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 
 private:
-    QVariant insert_data_to_column(QModelIndex index, Car car) const;
-    // apufunktiota
+    // help functions for class
     void sort_ascending_order(int column);
     void sort_descending_order(int column);
+
+    QVariant insert_data_to_column(QModelIndex index, Car car) const;
 
     QVector<Car> m_data;
 };
