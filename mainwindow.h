@@ -26,7 +26,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    Car getCar();
 
 private:
     Ui::MainWindow *ui;
@@ -38,6 +37,6 @@ private:
     CarModel* m_car_model;
     CostsCalculator* m_costs_calc;
     CustomProxyModel* m_proxy_model;
-    FilterInputDialog* m_filter_input;
+    FilterInputDialog *m_filter_input_dialog;
 };
 #endif // MAINWINDOW_H

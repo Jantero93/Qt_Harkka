@@ -1,15 +1,12 @@
 #include "readjson.h"
 
+#include <QDebug>
 #include <QFile>
 #include <QIODevice>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QVector>
-
-#include <iostream>
-#include <QDebug>
-
 
 QVector<Car> get_cars_from_json_file() {
 
@@ -18,7 +15,6 @@ QVector<Car> get_cars_from_json_file() {
     file.open(QIODevice::ReadOnly | QIODevice::Text);
 
     QByteArray json_text = file.readAll();
-    // std::cout << json_text.toStdString() << std::endl;
     file.close();
 
     QJsonParseError parseError;
@@ -51,12 +47,10 @@ QVector<Car> get_cars_from_json_file() {
 Car parse_car_from_jsonArray(const QJsonValue value)
 {
     int year = value.toObject().value("year").toInt();
-   // int id = value.toObject().value("id").toInt();
     int horsepower = value.toObject().value("horsepower").toInt();
     int price = value.toObject().value("price").toInt();
     QString make(value.toObject().value("make").toString());
-   // QString img_url(value.toObject().value("img_url").toString());
     QString model(value.toObject().value("model").toString());
 
-    return Car(year,/* id,*/ horsepower, make, model, price /* , img_url*/);
+    return Car(year, horsepower, make, model, price);
 }

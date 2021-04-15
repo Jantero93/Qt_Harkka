@@ -1,7 +1,6 @@
 #include "carmodel.h"
 
 #include <algorithm>
-#include <iostream>
 
 
 

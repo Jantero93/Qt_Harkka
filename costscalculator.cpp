@@ -4,6 +4,7 @@
 
 void CostsCalculator::on_click_exit_button()
 {
+    // reset ui and exit
     ui->doubleSpin_FueConsuption->setValue(10);
     ui->doubleSpin_FuelPriceLiter->setValue(1.6);
     ui->lineEdit_Inspection->setText("");
@@ -21,12 +22,15 @@ void CostsCalculator::on_click_calc_button()
 {
     UserInput input = getInputFromUI();
 
+    // calc costs on driven kilometers
     double driven_costs = (input.driven_kilometers / 100) * input.fuel_consuption * input.fuel_price;
     ui->label_CostKilometer->setText(QString::number(driven_costs));
 
+    // calc costs per 100 km
     double consuption_per_100 = input.fuel_consuption * input.fuel_price;
     ui->label_CostConsuption->setText(QString::number(consuption_per_100) + " /100km");
 
+    // calc total costs
     double total_costs = driven_costs + input.inspection + input.insurance + input.maintance;
     QString totalText("Total costs: ");
     totalText.append( QString::number(total_costs) );
@@ -43,16 +47,12 @@ CostsCalculator::CostsCalculator(QWidget *parent) :
     // input 7 digits, no leading zeros
     QRegExpValidator* validator = new QRegExpValidator(QRegExp("[1-9]\\d{0,6}"));
 
-
-    // set input validators for lineediut
+    // set input validators for line edits
     ui->lineEdit_driven->setValidator(validator);
     ui->lineEdit_Inspection->setValidator(validator);
     ui->lineEdit_Insurance->setValidator(validator);
     ui->lineEdit_Maintance->setValidator(validator);
 
-
-
-    // connect buttons
     connect(ui->pushButton_Exit,
             &QPushButton::pressed,
             this,
@@ -71,6 +71,7 @@ CostsCalculator::~CostsCalculator()
 
 void CostsCalculator::setCar(Car car)
 {
+    // car data from mainwindow, set car info labels
     m_car = car;
     this->setCarLabels();
 }
@@ -87,6 +88,7 @@ CostsCalculator::UserInput CostsCalculator::getInputFromUI()
     return input;
 }
 
+// set car info
 void CostsCalculator::setCarLabels()
 {
     ui->label_CarMake->setText("Make: " + m_car.m_make);

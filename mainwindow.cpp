@@ -3,14 +3,14 @@
 #include "readjson.h"
 #include "ui_mainwindow.h"
 
-#include <iostream>
+
 #include <QVector>
 #include <QDebug>
-#include <iostream>
+
 
 void MainWindow::on_click_filter_settings_button()
 {
-    if(m_filter_input->exec() == QDialog::Accepted)
+    if(m_filter_input_dialog->exec() == QDialog::Accepted)
     {
         // set values from inputdialog to proxy model
         this->setSettingsFromDialogToProxyModel();
@@ -44,32 +44,30 @@ void MainWindow::on_checkbox_state_change()
 
 void MainWindow::on_click_calculate_costs_button()
 {
-       // save selected car on member variable
+        // get selection from tableview (only one row can be selected)
         QItemSelectionModel* selection = ui->tableView->selectionModel();
 
-        if (selection->hasSelection())        {
-
+        if (selection->hasSelection())
+        {
             Car car;
             if(ui->checkBox_EnableFilter->isChecked())
             {
                 QModelIndex index = m_proxy_model->mapToSource(selection->selectedIndexes().at(0));
-                qDebug() << "valittu rivin indeksi proxy)): " << selection->selectedIndexes().at(0).row();
-                qDebug() << "mikä tämä index  " << index.row();
+                qDebug() << "valittu rivin indeksi proxymodel : " << selection->selectedIndexes().at(0).row();
                 car = m_car_model->get_car(index.row());
-                // tee taikoja
 
             }
             else
             {
                 QModelIndex index = selection->selectedIndexes().at(0);
-                qDebug() << "rivi on normi)) " << index.row();
+                qDebug() << "rivi on car_modelissa  " << index.row();
 
                 car = m_car_model->get_car(index.row());
-                qDebug() << "asdsds" << car.m_model;
+                qDebug() << "auton malli " << car.m_model;
 
             }
 
-
+            // set selected car on costs calc and execute
             m_costs_calc->setCar(car);
             m_costs_calc->exec();
         }
@@ -94,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_car_model(new CarModel)
     , m_costs_calc(new CostsCalculator)
     , m_proxy_model(new CustomProxyModel)
-    , m_filter_input(new FilterInputDialog)
+    , m_filter_input_dialog(new FilterInputDialog)
 {
     ui->setupUi(this);
 
@@ -124,32 +122,27 @@ MainWindow::MainWindow(QWidget *parent)
 
     // car list from json file
     QVector<Car> cars = get_cars_from_json_file();
-    // set custom model
-    ui->tableView->setModel(m_car_model);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    // piilota nysä
-    ui->tableView->verticalHeader()->hide();
-    // sorttaus päälle
-    ui->tableView->setSortingEnabled(true);
-    // selectaa koko rivi
-    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    // vain yksi rivi kerrallaan
-    ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    // https://stackoverflow.com/questions/5927499/how-to-get-selected-rows-in-qtableview
-
-    // add car data to model
+    // add car data to model from json
     foreach (const Car car, cars){
         m_car_model->add_car(car);
     }
 
-    // proxy modelille auto data
-    m_proxy_model->setSourceModel(m_car_model);
+    // set custom model
+    ui->tableView->setModel(m_car_model);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
+    ui->tableView->verticalHeader()->hide();
+    ui->tableView->setSortingEnabled(true);
+
+    // selectaa whole row one at time
+    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    // data for proxy model (from car model)
+    m_proxy_model->setSourceModel(m_car_model);
     m_proxy_model->enableFiltering(true);
-    // TEST
-  //  ui->tableView->setModel(m_proxy_model);
-    //m_proxy_model->setMaxHP(500);
+
 }
 
 MainWindow::~MainWindow()
@@ -157,17 +150,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-Car MainWindow::getCar()
-{
-    return m_car;
-}
-
-
-// apu funktio mainwindowiin
+// help function for mainwindow to fetch data
 void MainWindow::setSettingsFromDialogToProxyModel()
 {
     // get settings struct from input dialog and set them on proxy model
-    FilterOptions filter_options = m_filter_input->getOptions();
+    FilterOptions filter_options = m_filter_input_dialog->getOptions();
 
     m_proxy_model->setMake(filter_options.make);
 

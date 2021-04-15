@@ -6,6 +6,8 @@
 
 void FilterInputDialog::on_click_dialog_buttons(QAbstractButton *clicked_button)
 {
+
+    // reset ui settings struct on reset click
     if (clicked_button == ui->buttonBox->button(QDialogButtonBox::Reset))
     {
         m_settings.make.clear();
@@ -33,6 +35,9 @@ void FilterInputDialog::on_click_dialog_buttons(QAbstractButton *clicked_button)
         ui->comboBox_MinYear->setCurrentIndex(0);
     }
 }
+
+// when input changes, check is it valid
+// is not -> print warning label
 
 void FilterInputDialog::on_make_change()
 {
@@ -131,10 +136,6 @@ FilterInputDialog::FilterInputDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     this->initialize_ui();
-
-
-
-    //ui->comboBox_MaxPower->setCompleter(QCompleter::T)
 }
 
 FilterInputDialog::~FilterInputDialog()
@@ -242,6 +243,7 @@ void FilterInputDialog::inputfieldsValid()
 
     if (!validInput)
     {
+        // set red-white style
         ui->label_Warning->setStyleSheet("QLabel {background-color : red; color : white}");
         ui->label_Warning->setText("Check input!");
     }

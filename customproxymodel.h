@@ -10,10 +10,6 @@ public:
     CustomProxyModel();
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
-  //  virtual QModelIndex mapFromSource(const QModelIndex& sourceIndex) const override;
-  //  virtual QModelIndex mapToSource(const QModelIndex& proxyIndex) const override;
-  //  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-  //  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
     // setterit
     void setMinPrice(int min_price);
@@ -24,13 +20,10 @@ public:
     void setMaxPower(int max_hp);
     void setMake(QString make);
     void setModel(QString model);
-    // resetoi filtter asetukset
+    // resetoi filter settings
     void resetFilter();
-    // on / off filteröinti
+    // on / off filtering
     void enableFiltering(bool enable);
-
-    // TEST
-    Car getCarByModelIndex(QModelIndex proxy_index,int role = Qt::DisplayRole);
 
 private:
     // jos 0 (alustus), niin ei filtteröidä

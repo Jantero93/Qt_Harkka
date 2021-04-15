@@ -63,17 +63,7 @@ QVariant CustomProxyModel::headerData(int section, Qt::Orientation orientation, 
 {
     return sourceModel()->headerData(section, orientation, role);
 }
-/*
-int CustomProxyModel::columnCount(const QModelIndex &parent) const
-{
-    return CarModel::CAR_MODEL_ATTRIBUTES_COUNT;
-}
 
-int CustomProxyModel::rowCount(const QModelIndex &parent) const
-{
-
-}
-*/
 void CustomProxyModel::setMinPrice(int min_price)
 {
     if (min_price != m_min_price)
@@ -163,30 +153,3 @@ void CustomProxyModel::enableFiltering(bool enable)
 {
     m_filter_enabled = enable;
 }
-
-
-#include <QDebug>
-Car CustomProxyModel::getCarByModelIndex(QModelIndex proxy_index, int role)
-{
-
-
-   // QVariant car_variant = this->sourceModel()->index()
-   // Car car = car_variant.value<Car>();
-
-    QAbstractItemModel* item_model = this->sourceModel();
-    QVariant variant = item_model->data(proxy_index, role);
-
-    Car car = variant.value<Car>();
-
-    //if(!car_variant.isNull())
-     //   qDebug() << car22.m_id;
-    //else
-        qDebug() << car.m_model;
-
-
-    return car;
-}
-
-
-
-
