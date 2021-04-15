@@ -2,7 +2,7 @@
 #include "carmodel.h"
 
 CustomProxyModel::CustomProxyModel() : m_min_price(0), m_max_price(0), m_min_year(0)
-  , m_max_year(0), m_min_hp(0), m_max_hp(0), m_filter_enabled(false)
+  , m_max_year(0), m_min_power(0), m_max_power(0), m_filter_enabled(false)
 {
 }
 
@@ -32,11 +32,11 @@ bool CustomProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sourc
         return false;
 
     // vertaa min horsepower
-    if (sourceModel()->data(idx_hp).toInt() < m_min_hp && m_min_hp != 0)
+    if (sourceModel()->data(idx_hp).toInt() < m_min_power && m_min_power != 0)
         return false;
 
     // vertaa max horsepoweriin
-    if (sourceModel()->data(idx_hp).toInt() > m_max_hp && m_max_hp != 0)
+    if (sourceModel()->data(idx_hp).toInt() > m_max_power && m_max_power != 0)
         return false;
 
     // vertaa min vuoteen
@@ -63,7 +63,17 @@ QVariant CustomProxyModel::headerData(int section, Qt::Orientation orientation, 
 {
     return sourceModel()->headerData(section, orientation, role);
 }
+/*
+int CustomProxyModel::columnCount(const QModelIndex &parent) const
+{
+    return CarModel::CAR_MODEL_ATTRIBUTES_COUNT;
+}
 
+int CustomProxyModel::rowCount(const QModelIndex &parent) const
+{
+
+}
+*/
 void CustomProxyModel::setMinPrice(int min_price)
 {
     if (min_price != m_min_price)
@@ -101,20 +111,20 @@ void CustomProxyModel::setMaxYear(int max_year)
     }
 }
 
-void CustomProxyModel::setMinHP(int min_hp)
+void CustomProxyModel::setMinPower(int min_hp)
 {
-    if (min_hp != m_min_hp)
+    if (min_hp != m_min_power)
     {
-        m_min_hp = min_hp;
+        m_min_power = min_hp;
         invalidateFilter();
     }
 }
 
-void CustomProxyModel::setMaxHP(int max_hp)
+void CustomProxyModel::setMaxPower(int max_hp)
 {
-    if (m_max_hp != max_hp)
+    if (m_max_power != max_hp)
     {
-        m_max_hp = max_hp;
+        m_max_power = max_hp;
         invalidateFilter();
     }
 }
@@ -153,3 +163,30 @@ void CustomProxyModel::enableFiltering(bool enable)
 {
     m_filter_enabled = enable;
 }
+
+
+#include <QDebug>
+Car CustomProxyModel::getCarByModelIndex(QModelIndex proxy_index, int role)
+{
+
+
+   // QVariant car_variant = this->sourceModel()->index()
+   // Car car = car_variant.value<Car>();
+
+    QAbstractItemModel* item_model = this->sourceModel();
+    QVariant variant = item_model->data(proxy_index, role);
+
+    Car car = variant.value<Car>();
+
+    //if(!car_variant.isNull())
+     //   qDebug() << car22.m_id;
+    //else
+        qDebug() << car.m_model;
+
+
+    return car;
+}
+
+
+
+

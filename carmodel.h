@@ -17,9 +17,13 @@ public:
     static constexpr int COL_POWER = 3;
     static constexpr int COL_PRICE = 4;
     static constexpr int COL_URL = 5;
+    // columneja yhtä monta kuin autolla attribuutteja (poislukien id ja url)
+    static constexpr int CAR_MODEL_ATTRIBUTES_COUNT = 5;
+
 
     void add_car(Car car);
     void remove_car(QModelIndexList);
+    Car get_car(int row);
 
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
@@ -31,7 +35,6 @@ private:
     // help functions for class
     void sort_ascending_order(int column);
     void sort_descending_order(int column);
-
     QVariant insert_data_to_column(QModelIndex index, Car car) const;
 
     QVector<Car> m_data;

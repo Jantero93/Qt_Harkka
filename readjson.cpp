@@ -51,12 +51,12 @@ QVector<Car> get_cars_from_json_file() {
 Car parse_car_from_jsonArray(const QJsonValue value)
 {
     int year = value.toObject().value("year").toInt();
-    int id = value.toObject().value("id").toInt();
+   // int id = value.toObject().value("id").toInt();
     int horsepower = value.toObject().value("horsepower").toInt();
     int price = value.toObject().value("price").toInt();
     QString make(value.toObject().value("make").toString());
-    QString img_url(value.toObject().value("img_url").toString());
+   // QString img_url(value.toObject().value("img_url").toString());
     QString model(value.toObject().value("model").toString());
 
-    return Car(year, id, horsepower, make, model, price, img_url);
+    return Car(year,/* id,*/ horsepower, make, model, price /* , img_url*/);
 }

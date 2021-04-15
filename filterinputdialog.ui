@@ -168,6 +168,8 @@
   <tabstop>lineEdit_Model</tabstop>
   <tabstop>comboBox_MinYear</tabstop>
   <tabstop>comboBox_MaxYear</tabstop>
+  <tabstop>comboBox_MinPrice</tabstop>
+  <tabstop>comboBox_MaxPrice</tabstop>
   <tabstop>comboBox_MinPower</tabstop>
   <tabstop>comboBox_MaxPower</tabstop>
  </tabstops>

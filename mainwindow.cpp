@@ -44,7 +44,36 @@ void MainWindow::on_checkbox_state_change()
 
 void MainWindow::on_click_calculate_costs_button()
 {
-       m_costs_calc->exec();
+       // save selected car on member variable
+        QItemSelectionModel* selection = ui->tableView->selectionModel();
+
+        if (selection->hasSelection())        {
+
+            Car car;
+            if(ui->checkBox_EnableFilter->isChecked())
+            {
+                QModelIndex index = m_proxy_model->mapToSource(selection->selectedIndexes().at(0));
+                qDebug() << "valittu rivin indeksi proxy)): " << selection->selectedIndexes().at(0).row();
+                qDebug() << "mikä tämä index  " << index.row();
+                car = m_car_model->get_car(index.row());
+                // tee taikoja
+
+            }
+            else
+            {
+                QModelIndex index = selection->selectedIndexes().at(0);
+                qDebug() << "rivi on normi)) " << index.row();
+
+                car = m_car_model->get_car(index.row());
+                qDebug() << "asdsds" << car.m_model;
+
+            }
+
+
+            m_costs_calc->setCar(car);
+            m_costs_calc->exec();
+        }
+
 }
 
 void MainWindow::on_pressed_cell_table_view_row()
@@ -63,8 +92,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_car_model(new CarModel)
-    , m_proxy_model(new CustomProxyModel)
     , m_costs_calc(new CostsCalculator)
+    , m_proxy_model(new CustomProxyModel)
     , m_filter_input(new FilterInputDialog)
 {
     ui->setupUi(this);
@@ -91,6 +120,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // default off when rows no selected
     ui->pushButton_Cost->setEnabled(false);
+    ui->checkBox_EnableFilter->setChecked(false);
 
     // car list from json file
     QVector<Car> cars = get_cars_from_json_file();
@@ -127,6 +157,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+Car MainWindow::getCar()
+{
+    return m_car;
+}
+
+
 // apu funktio mainwindowiin
 void MainWindow::setSettingsFromDialogToProxyModel()
 {
@@ -140,8 +176,8 @@ void MainWindow::setSettingsFromDialogToProxyModel()
     m_proxy_model->setMinYear(filter_options.min_year);
     m_proxy_model->setMaxYear(filter_options.max_year);
 
-    m_proxy_model->setMinHP(filter_options.min_power);
-    m_proxy_model->setMaxHP(filter_options.max_power);
+    m_proxy_model->setMinPower(filter_options.min_power);
+    m_proxy_model->setMaxPower(filter_options.max_power);
 
     m_proxy_model->setMinPrice(filter_options.min_price);
     m_proxy_model->setMaxPrice(filter_options.max_price);

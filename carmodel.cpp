@@ -4,8 +4,6 @@
 #include <iostream>
 
 
-// columneja yhtä monta kuin autolla attribuutteja (poislukien id ja url)
-static constexpr int CAR_MODEL_ATTRIBUTES_COUNT = 5;
 
 CarModel::CarModel()
 {
@@ -28,6 +26,11 @@ void CarModel::remove_car(QModelIndexList indexList)
         endRemoveRows();
     }
 
+}
+
+Car CarModel::get_car(int row)
+{
+    return m_data.at(row);
 }
 
 // Set headers for view
@@ -60,9 +63,9 @@ QVariant CarModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole)
     {
         Car car = m_data.at(index.row());
-
-        return insert_data_to_column(index, car);
+        return this->insert_data_to_column(index, car);
     }
+
  return QVariant();
 }
 

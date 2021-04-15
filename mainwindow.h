@@ -26,14 +26,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    Car getCar();
+
 private:
     Ui::MainWindow *ui;
 
     void setSettingsFromDialogToProxyModel();
 
+
+    Car m_car;
     CarModel* m_car_model;
-    CustomProxyModel* m_proxy_model;
     CostsCalculator* m_costs_calc;
+    CustomProxyModel* m_proxy_model;
     FilterInputDialog* m_filter_input;
 };
 #endif // MAINWINDOW_H
