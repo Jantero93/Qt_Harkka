@@ -7,11 +7,14 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QVector>
+#include <QException>
 
 QVector<Car> get_cars_from_json_file() {
 
+    const QString FILE_NAME("CARS_data.json");
+
     QFile file;
-    file.setFileName("CARS_data.json");
+    file.setFileName(FILE_NAME);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
 
     QByteArray json_text = file.readAll();
@@ -22,7 +25,8 @@ QVector<Car> get_cars_from_json_file() {
 
     // check parse errors
     if (parseError.error != QJsonParseError::NoError){
-        qDebug() << "Parse error: " << parseError.errorString();
+        qDebug() << "Parse error on fetching data from json file, error msg: " << parseError.errorString();
+
     }
     // array from root object
     QJsonArray car_json_array = document.array();

@@ -1,6 +1,6 @@
 
 #include "utility.h"
-#include <QLocale>
+
 
 QStringList generateDropDownForLoop(int start, int step, int end, bool reverseOrder)
 {
