@@ -11,10 +11,12 @@
 
 QVector<Car> get_cars_from_json_file() {
 
-    const QString FILE_NAME("CARS_data.json");
 
-    QFile file;
-    file.setFileName(FILE_NAME);
+    //const QString FILE_NAME("CARS_data.json");
+    //QFile file;
+    //file.setFileName(FILE_NAME);
+
+    QFile file(":CARS_data.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
 
     QByteArray json_text = file.readAll();
