@@ -157,6 +157,16 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_driven</tabstop>
+  <tabstop>doubleSpin_FuelPriceLiter</tabstop>
+  <tabstop>doubleSpin_FueConsuption</tabstop>
+  <tabstop>lineEdit_Insurance</tabstop>
+  <tabstop>lineEdit_Maintance</tabstop>
+  <tabstop>lineEdit_Inspection</tabstop>
+  <tabstop>pushButton_Calculate</tabstop>
+  <tabstop>pushButton_Exit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
